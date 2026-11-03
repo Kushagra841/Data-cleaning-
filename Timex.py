@@ -144,8 +144,8 @@ result = sku_rows.merge(
 # 14. Remove temporary Order_ID
 result = result.drop(columns=["Order_ID"])
 
-# 15. Move Date, Platform and SKU to the beginning
-first_columns = ["Date", "Platform", "SKU"]
+# 15. Move Date, SKU and Platform to the beginning
+first_columns = ["Date", "SKU", "Platform"]
 
 other_columns = [
     col for col in result.columns
@@ -162,11 +162,18 @@ if "Value" in result.columns:
 else:
     print("Warning: Value column not found. Net sale not calculated.")
 
-# 17. Reset index
+# 17. Swap the positions of Value and net sale
+if "Value" in result.columns and "net sale" in result.columns:
+    cols = result.columns.tolist()
+    i, j = cols.index("Value"), cols.index("net sale")
+    cols[i], cols[j] = cols[j], cols[i]
+    result = result[cols]
+
+# 18. Reset index
 result = result.reset_index(drop=True)
 
-# 18. Save the cleaned Excel file
-output_file = r"C:\Users\shant\Downloads\first file.xlsx"
+# 19. Save the cleaned Excel file
+output_file = r"C:\Users\shant\Downloads\Timex\Timex cleaned file.xlsx"
 
 result.to_excel(output_file, index=False)
 
