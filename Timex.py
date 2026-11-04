@@ -1,7 +1,7 @@
 import pandas as pd
 import openpyxl as op
 
-input_file = r"C:\Users\shant\Downloads\Timex\sale\Timex Group Sales Report Dt. 29.10.2026.xlsx"
+input_file = r"C:\Users\shant\Downloads\Timex Group Return Dt 30-10-26 to 2-11-26.xlsx"
 df = pd.read_excel(input_file)
 
 print("Original rows:", len(df))
